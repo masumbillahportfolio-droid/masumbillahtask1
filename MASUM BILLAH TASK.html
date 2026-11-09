@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MASUM BILLAH TASK</title>
+<style>
+:root{--bg:#05060d;--bg2:#0b1024;--glass:rgba(255,255,255,.055);--glass2:rgba(255,255,255,.09);--line:rgba(255,255,255,.1);--tx:#eef1ff;--mut:#97a0c3;--blue:#4f8cff;--pur:#9b6bff;--ok:#34d399;--warn:#fbbf24;--bad:#f87171;--grad:linear-gradient(135deg,#4f8cff,#9b6bff);--shadow:0 10px 40px rgba(0,0,0,.45);--r:18px;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme=light]{--bg:#eef1fb;--bg2:#e2e7fb;--glass:rgba(255,255,255,.7);--glass2:rgba(255,255,255,.95);--line:rgba(30,40,90,.12);--tx:#141a3a;--mut:#5b6489;--shadow:0 10px 30px rgba(40,50,110,.15);color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;background:radial-gradient(900px 500px at 85% -10%,rgba(155,107,255,.22),transparent),radial-gradient(800px 500px at -5% 105%,rgba(79,140,255,.18),transparent),linear-gradient(160deg,var(--bg),var(--bg2));background-color:var(--bg);color:var(--tx);min-height:100vh}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0}
+.app{display:flex;min-height:100vh}
+.side{width:248px;flex:none;padding:18px 14px;background:var(--glass);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh;transition:width .3s,transform .3s;z-index:30}
+.brand{display:flex;align-items:center;gap:11px;padding:6px 8px 18px;font-weight:800;letter-spacing:.06em;font-size:14px;white-space:nowrap}
+.logo{width:38px;height:38px;border-radius:12px;background:var(--grad);display:grid;place-items:center;font-weight:800;color:#fff;flex:none;box-shadow:0 6px 20px rgba(110,100,255,.45)}
+.nav{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:none;color:var(--mut);text-align:left;white-space:nowrap;transition:.2s;width:100%}
+.nav:hover{background:var(--glass2);color:var(--tx)}
+.nav.on{background:var(--grad);color:#fff;box-shadow:0 6px 18px rgba(110,100,255,.35)}
+.nav i{font-style:normal;width:22px;text-align:center;flex:none}
+.sp{flex:1}
+.collapsed .side{width:76px}.collapsed .side .lbl{display:none}
+.main{flex:1;min-width:0;padding:22px clamp(14px,3vw,34px) 60px}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.top h1{font-size:clamp(20px,3vw,28px);margin:0;flex:1}
+.ic{width:42px;height:42px;border-radius:12px;background:var(--glass);border:1px solid var(--line);color:var(--tx);backdrop-filter:blur(14px)}
+.ic:hover{background:var(--glass2)}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:var(--r);padding:20px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:var(--shadow);animation:in .45s both}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.btn{padding:10px 16px;border-radius:12px;background:var(--glass2);border:1px solid var(--line);font-weight:600;font-size:14px;transition:.2s;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn:hover{transform:translateY(-1px);border-color:var(--blue)}
+.btn.pri{background:var(--grad);border:0;color:#fff;box-shadow:0 6px 18px rgba(110,100,255,.4)}
+.btn.dng{color:var(--bad)}
+.grid{display:grid;gap:16px}
+.stats{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin-bottom:16px}
+.stat small{color:var(--mut);font-size:13px}.stat b{display:block;font-size:30px;margin-top:6px}
+.stat .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-bottom:16px}
+h2{font-size:16px;margin:0 0 14px}
+.bar{height:9px;border-radius:9px;background:var(--glass2);overflow:hidden}
+.bar>span{display:block;height:100%;border-radius:9px;background:var(--grad);transition:width .6s}
+.bar.ok>span{background:linear-gradient(90deg,#10b981,#34d399)}
+.row{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.chart{display:flex;align-items:flex-end;gap:22px;height:150px;padding-top:10px}
+.chart div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px;font-size:13px;color:var(--mut)}
+.chart span{width:100%;max-width:70px;border-radius:10px 10px 4px 4px;min-height:4px;transition:height .6s}
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.inp{width:100%;padding:11px 14px;border-radius:12px;background:var(--glass);border:1px solid var(--line);outline:0;transition:.2s}
+.inp:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,140,255,.2)}
+.tools .inp{flex:1 1 200px;width:auto}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:9px 14px;border-radius:99px;background:var(--glass);border:1px solid var(--line);font-size:13px;color:var(--mut)}
+.chip.on{background:var(--grad);color:#fff;border:0}
+.plist{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.pc{cursor:pointer;transition:.25s}.pc:hover{transform:translateY(-3px);border-color:var(--blue)}
+.av{width:46px;height:46px;border-radius:14px;background:var(--grad);display:grid;place-items:center;font-weight:700;color:#fff;overflow:hidden;flex:none}
+.av img{width:100%;height:100%;object-fit:cover}
+.av.lg{width:72px;height:72px;font-size:26px;border-radius:20px}
+.badge{padding:4px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--glass2);white-space:nowrap}
+.b-ok{color:var(--ok)}.b-warn{color:var(--warn)}.b-bad{color:var(--bad)}.b-blue{color:var(--blue)}
+.mut{color:var(--mut);font-size:13px}
+.task{display:flex;align-items:center;gap:10px;padding:8px;border-radius:12px;background:var(--glass);border:1px solid var(--line);margin-bottom:8px}
+.task .inp{border:0;background:none;padding:8px}
+.task.done .inp{text-decoration:line-through;color:var(--mut)}
+.seg{display:flex;gap:4px;flex:none}
+.seg button{width:34px;height:34px;border-radius:10px;background:var(--glass2);color:var(--mut)}
+.seg .s-done.on{background:var(--ok);color:#042}.seg .s-prog.on{background:var(--blue);color:#fff}.seg .s-todo.on{background:var(--bad);color:#300}
+.x{background:none;color:var(--mut);width:34px;height:34px;border-radius:10px;flex:none}.x:hover{color:var(--bad);background:var(--glass2)}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.info small{display:block;color:var(--mut);margin-bottom:3px}
+.mask{position:fixed;inset:0;background:rgba(2,4,14,.65);backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px;z-index:60;overflow:auto}
+.modal{width:min(560px,100%);max-height:92vh;overflow:auto;background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow);animation:in .3s both}
+.modal label{display:block;margin:12px 0 5px;font-size:13px;color:var(--mut)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+textarea.inp{min-height:90px;resize:vertical}
+.toast{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--bg2);border:1px solid var(--ok);padding:13px 18px;border-radius:14px;box-shadow:var(--shadow);z-index:80;animation:in .3s both;max-width:calc(100vw - 32px)}
+.empty{text-align:center;padding:40px;color:var(--mut)}
+.menu{display:none}
+@media(max-width:860px){.side{position:fixed;left:0;transform:translateX(-100%);width:248px!important}.side .lbl{display:inline!important}.open .side{transform:none}.menu{display:block}.f2{grid-template-columns:1fr}.shade{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:20;display:none}.open .shade{display:block}}
+@media(max-width:520px){.task{flex-wrap:wrap}.task .inp{flex:1 1 100%;order:-1}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="side">
+    <div class="brand"><div class="logo">M</div><span class="lbl">MASUM BILLAH TASK</span></div>
+    <button class="nav" data-go="dashboard"><i>▦</i><span class="lbl">Dashboard</span></button>
+    <button class="nav" data-go="projects"><i>☰</i><span class="lbl">Clients &amp; Projects</span></button>
+    <button class="nav" data-act="new"><i>＋</i><span class="lbl">New Client</span></button>
+    <div class="sp"></div>
+    <button class="nav" data-act="theme"><i id="thIc">☀</i><span class="lbl" id="thLb">Light mode</span></button>
+  </aside>
+  <div class="shade" data-act="menu"></div>
+  <main class="main">
+    <div class="top"><button class="ic" data-act="menu" aria-label="Toggle menu">☰</button><h1 id="title"></h1><button class="btn pri" data-act="new">＋ New Client</button></div>
+    <div id="view"></div>
+  </main>
+</div>
+<div id="layer"></div>
+
+<script>
+/* ============ DATA LAYER (swap this object for Firebase Firestore later) ============ */
+const KEY = 'masum-billah-task:v1';
+const Repo = {
+  load() { try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; } },
+  save(projects) { try { localStorage.setItem(KEY, JSON.stringify(projects)); } catch (e) { toast('Could not save – storage unavailable', true); } },
+  // Firestore later: make these async and use setDoc/getDocs on a "projects" collection.
+};
+const uid = () => Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-3);
+const DEFAULT_TASKS = ['Video Editing','Thumbnail Design','Intro Animation','Outro Animation','Color Grading','Sound Design','Motion Graphics','Final Rendering','Final Delivery'];
+const mkTasks = (names, st) => names.map((n, i) => ({ id: uid(), name: n, status: st && st[i] || 'todo' }));
+
+let S = { projects: Repo.load(), view: 'dashboard', pid: null, q: '', filter: 'all' };
+if (!Array.isArray(S.projects)) {
+  const t = new Date(), d = n => new Date(t.getTime() + n * 864e5).toISOString().slice(0, 10);
+  S.projects = [{ id: uid(), name: 'Sample Client', image: '', email: '', project: 'YouTube Channel Intro Pack', start: d(-5), deadline: d(6), drive: '', notes: 'Sample project – edit or delete it any time.', tasks: mkTasks(DEFAULT_TASKS, ['done','done','progress']), updated: t.toISOString() }];
+  Repo.save(S.projects);
+}
+const save = () => Repo.save(S.projects);
+
+/* ============ HELPERS ============ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = d => d ? new Date(d + (d.length === 10 ? 'T00:00' : '')).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
+const fmtT = d => new Date(d).toLocaleString(undefined, { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+const getP = id => S.projects.find(p => p.id === id);
+const stats = p => { const total = p.tasks.length, done = p.tasks.filter(t => t.status === 'done').length, prog = p.tasks.filter(t => t.status === 'progress').length; return { total, done, prog, todo: total - done - prog, pct: total ? Math.round(done / total * 100) : 0 }; };
+const state = p => { const s = stats(p); return s.total && s.done === s.total ? 'completed' : (s.done || s.prog) ? 'ongoing' : 'pending'; };
+const touch = p => { p.updated = new Date().toISOString(); save(); };
+const link = u => u ? (/^https?:\/\//i.test(u) ? u : 'https://' + u) : '';
+function deadline(p) {
+  if (!p.deadline || state(p) === 'completed') return '';
+  const n = Math.ceil((new Date(p.deadline + 'T23:59') - new Date()) / 864e5);
+  if (n < 0) return `<span class="badge b-bad">⚠ Overdue by ${-n}d</span>`;
+  if (n <= 3) return `<span class="badge b-warn">⏰ Due ${n === 0 ? 'today' : 'in ' + n + 'd'}</span>`;
+  return '';
+}
+const stBadge = p => { const s = state(p); return `<span class="badge ${s === 'completed' ? 'b-ok' : s === 'ongoing' ? 'b-blue' : 'b-warn'}">${s[0].toUpperCase() + s.slice(1)}</span>`; };
+const avatar = (p, c = '') => `<div class="av ${c}">${p.image ? `<img src="${esc(p.image)}" alt="">` : esc((p.name || '?')[0].toUpperCase())}</div>`;
+function toast(msg, bad) { const e = document.createElement('div'); e.className = 'toast'; if (bad) e.style.borderColor = 'var(--bad)'; e.textContent = msg; document.body.appendChild(e); setTimeout(() => e.remove(), 2600); }
+
+/* ============ VIEWS ============ */
+function go(v, id) { S.view = v; S.pid = id || null; location.hash = id ? 'project-' + id : v; document.getElementById('app').classList.remove('open'); render(); window.scrollTo(0, 0); }
+
+function render() {
+  document.querySelectorAll('[data-go]').forEach(b => b.classList.toggle('on', b.dataset.go === (S.view === 'dashboard' ? 'dashboard' : 'projects')));
+  const v = $('#view');
+  if (S.view === 'detail' && !getP(S.pid)) S.view = 'projects';
+  if (S.view === 'dashboard') { $('#title').textContent = 'Dashboard'; v.innerHTML = dashboard(); }
+  else if (S.view === 'projects') {
+    $('#title').textContent = 'Clients & Projects';
+    v.innerHTML = `<div class="tools"><input class="inp" id="q" placeholder="Search by client or project name…" value="${esc(S.q)}"><div class="chips">${['all','completed','pending','ongoing'].map(f => `<button class="chip ${S.filter === f ? 'on' : ''}" data-filter="${f}">${f[0].toUpperCase() + f.slice(1)}</button>`).join('')}</div></div><div id="list" class="grid plist"></div>`;
+    $('#q').oninput = e => { S.q = e.target.value; list(); };
+    list();
+  } else { const p = getP(S.pid); $('#title').textContent = p.project || 'Project'; v.innerHTML = detail(p); }
+}
+
+function dashboard() {
+  const P = S.projects, all = P.flatMap(p => p.tasks);
+  const done = all.filter(t => t.status === 'done').length, prog = all.filter(t => t.status === 'progress').length, todo = all.length - done - prog;
+  const pct = all.length ? Math.round(done / all.length * 100) : 0, C = 2 * Math.PI * 52;
+  const card = (l, n, c) => `<div class="card stat"><small><span class="dot" style="background:${c}"></span>${l}</small><b>${n}</b></div>`;
+  const max = Math.max(done, prog, todo, 1), col = (l, n, c) => `<div>${n}<span style="height:${n / max * 100}%;background:${c}"></span>${l}</div>`;
+  return `<div class="grid stats">${card('Total Clients', P.length, 'var(--blue)')}${card('Total Projects', P.length, 'var(--pur)')}${card('Completed Tasks', done, 'var(--ok)')}${card('Pending Tasks', todo, 'var(--bad)')}${card('In Progress Tasks', prog, 'var(--blue)')}${card('Overall Completion', pct + '%', 'var(--pur)')}</div>
+  <div class="grid two">
+   <div class="card"><h2>Overall Project Completion</h2><div class="row" style="justify-content:space-around;flex-wrap:wrap"><svg width="150" height="150" viewBox="0 0 120 120"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f8cff"/><stop offset="1" stop-color="#9b6bff"/></linearGradient></defs><circle cx="60" cy="60" r="52" fill="none" stroke="var(--glass2)" stroke-width="12"/><circle cx="60" cy="60" r="52" fill="none" stroke="url(#g)" stroke-width="12" stroke-linecap="round" stroke-dasharray="${C * pct / 100} ${C}" transform="rotate(-90 60 60)" style="transition:stroke-dasharray .8s"/><text x="60" y="67" text-anchor="middle" font-size="22" font-weight="700" fill="var(--tx)">${pct}%</text></svg><div class="mut">${done} of ${all.length} tasks completed<br>${P.filter(p => state(p) === 'completed').length} of ${P.length} projects finished</div></div></div>
+   <div class="card"><h2>Task Status</h2><div class="chart">${col('Done', done, 'var(--ok)')}${col('In Progress', prog, 'var(--blue)')}${col('Pending', todo, 'var(--bad)')}</div></div>
+  </div>
+  <div class="card"><h2>Project Progress</h2>${P.length ? P.map(p => { const s = stats(p); return `<div style="margin-bottom:16px;cursor:pointer" data-open="${p.id}"><div class="row" style="margin-bottom:7px"><b>${esc(p.project)} <span class="mut">· ${esc(p.name)}</span></b><span>${s.pct}%</span></div><div class="bar ${s.pct === 100 ? 'ok' : ''}"><span style="width:${s.pct}%"></span></div></div>`; }).join('') : '<div class="empty">No projects yet. Click “New Client” to start.</div>'}</div>`;
+}
+
+function list() {
+  const q = S.q.trim().toLowerCase();
+  const r = S.projects.filter(p => (!q || p.name.toLowerCase().includes(q) || p.project.toLowerCase().includes(q)) && (S.filter === 'all' || state(p) === S.filter));
+  $('#list').innerHTML = r.length ? r.map(p => { const s = stats(p); return `<div class="card pc" data-open="${p.id}"><div class="row" style="justify-content:flex-start">${avatar(p)}<div style="min-width:0;flex:1"><b>${esc(p.project)}</b><div class="mut">${esc(p.name)}</div></div>${stBadge(p)}</div><div class="row" style="margin:16px 0 8px"><span class="mut">${s.done}/${s.total} tasks</span><b>${s.pct}%</b></div><div class="bar ${s.pct === 100 ? 'ok' : ''}"><span style="width:${s.pct}%"></span></div><div class="row mut" style="margin-top:14px;flex-wrap:wrap"><span>Due ${fmt(p.deadline)}</span>${deadline(p)}</div></div>`; }).join('') : `<div class="card empty" style="grid-column:1/-1">No matching projects.</div>`;
+}
+
+function detail(p) {
+  const s = stats(p), d = link(p.drive), done = p.tasks.filter(t => t.status === 'done'), pend = p.tasks.filter(t => t.status !== 'done');
+  const li = a => a.length ? a.map(t => `<div class="mut" style="padding:5px 0">${t.status === 'progress' ? '◐' : '✕'} ${esc(t.name)}</div>`).join('') : '<div class="mut">None</div>';
+  return `<div class="card"><div class="row" style="flex-wrap:wrap;align-items:flex-start"><div class="row" style="justify-content:flex-start;gap:16px">${avatar(p, 'lg')}<div><h2 style="font-size:22px;margin:0 0 4px">${esc(p.project)}</h2><div>${esc(p.name)}</div><div class="mut">${esc(p.email) || 'No email'}</div></div></div>
+   <div class="chips">${d ? `<a class="btn pri" href="${esc(d)}" target="_blank" rel="noopener">📁 Open Client Drive</a>` : `<button class="btn" data-act="edit" data-id="${p.id}">📁 Add Drive link</button>`}<button class="btn" data-act="edit" data-id="${p.id}">✎ Edit</button><button class="btn" data-act="dup" data-id="${p.id}">⧉ Duplicate</button><button class="btn dng" data-act="del" data-id="${p.id}">🗑 Delete</button></div></div>
+   <div class="info" style="margin-top:22px"><div><small>Start date</small>${fmt(p.start)}</div><div><small>Deadline</small>${fmt(p.deadline)} ${deadline(p)}</div><div><small>Status</small>${stBadge(p)}</div><div><small>Last updated</small>${fmtT(p.updated)}</div></div>
+   <div class="row" style="margin:22px 0 8px"><b>Project progress</b><b>${s.pct}%</b></div><div class="bar ${s.pct === 100 ? 'ok' : ''}"><span style="width:${s.pct}%"></span></div></div>
+  <div class="grid two" style="margin-top:16px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))"><div class="card" style="grid-column:1/-1"><h2>Tasks <span class="mut">(✕ pending · ◐ in progress · ✓ done)</span></h2>
+   ${p.tasks.map(t => `<div class="task ${t.status}"><div class="seg"><button class="s-todo ${t.status === 'todo' ? 'on' : ''}" data-set="todo" data-t="${t.id}" title="Not done">✕</button><button class="s-prog ${t.status === 'progress' ? 'on' : ''}" data-set="progress" data-t="${t.id}" title="In progress">◐</button><button class="s-done ${t.status === 'done' ? 'on' : ''}" data-set="done" data-t="${t.id}" title="Completed">✓</button></div><input class="inp" value="${esc(t.name)}" data-rename="${t.id}" aria-label="Task name"><button class="x" data-deltask="${t.id}" title="Delete task">🗑</button></div>`).join('') || '<div class="empty">No tasks yet.</div>'}
+   <div class="row" style="margin-top:12px"><input class="inp" id="newTask" placeholder="Add a custom task…"><button class="btn pri" data-act="addtask">＋ Add</button></div></div>
+   <div class="card"><h2>✓ Completed (${done.length})</h2>${done.map(t => `<div class="b-ok" style="padding:5px 0">✓ ${esc(t.name)}</div>`).join('') || '<div class="mut">None yet</div>'}</div>
+   <div class="card"><h2>Pending (${pend.length})</h2>${li(pend)}</div>
+   <div class="card" style="grid-column:1/-1"><h2>Notes</h2><div style="white-space:pre-wrap">${esc(p.notes) || '<span class="mut">No notes.</span>'}</div></div></div>`;
+}
+
+/* ============ MODALS ============ */
+const layer = () => $('#layer');
+const close = () => layer().innerHTML = '';
+function confirmBox(msg, ok) {
+  layer().innerHTML = `<div class="mask"><div class="modal"><h2>Please confirm</h2><p>${esc(msg)}</p><div class="row" style="justify-content:flex-end"><button class="btn" id="no">Cancel</button><button class="btn pri" id="yes">Yes, delete</button></div></div></div>`;
+  $('#no').onclick = close; $('#yes').onclick = () => { close(); ok(); };
+}
+function form(id) {
+  const p = id ? getP(id) : { name: '', image: '', email: '', project: '', start: new Date().toISOString().slice(0, 10), deadline: '', drive: '', notes: '' };
+  let img = p.image || '';
+  layer().innerHTML = `<div class="mask"><div class="modal"><h2>${id ? 'Edit' : 'New'} Client &amp; Project</h2>
+   <label>Client name *</label><input class="inp" id="f-name" value="${esc(p.name)}">
+   <div class="f2"><div><label>Email (optional)</label><input class="inp" id="f-email" type="email" value="${esc(p.email)}"></div><div><label>Profile image (optional)</label><input class="inp" id="f-img" type="file" accept="image/*"></div></div>
+   <label>Project name *</label><input class="inp" id="f-project" value="${esc(p.project)}">
+   <div class="f2"><div><label>Start date</label><input class="inp" id="f-start" type="date" value="${esc(p.start)}"></div><div><label>Deadline</label><input class="inp" id="f-dead" type="date" value="${esc(p.deadline)}"></div></div>
+   <label>Google Drive folder link</label><input class="inp" id="f-drive" placeholder="https://drive.google.com/…" value="${esc(p.drive)}">
+   <label>Project notes</label><textarea class="inp" id="f-notes">${esc(p.notes)}</textarea>
+   <div class="row" style="justify-content:flex-end;margin-top:18px"><button class="btn" id="f-cancel">Cancel</button><button class="btn pri" id="f-save">Save</button></div></div></div>`;
+  $('#f-img').onchange = e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { const im = new Image(); im.onload = () => { const c = document.createElement('canvas'), k = Math.min(1, 200 / Math.max(im.width, im.height)); c.width = im.width * k; c.height = im.height * k; c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); img = c.toDataURL('image/jpeg', .8); }; im.src = r.result; }; r.readAsDataURL(f); };
+  $('#f-cancel').onclick = close;
+  $('#f-save').onclick = () => {
+    const name = $('#f-name').value.trim(), project = $('#f-project').value.trim();
+    if (!name || !project) return toast('Client name and project name are required', true);
+    const data = { name, project, image: img, email: $('#f-email').value.trim(), start: $('#f-start').value, deadline: $('#f-dead').value, drive: $('#f-drive').value.trim(), notes: $('#f-notes').value };
+    if (id) { Object.assign(p, data); touch(p); toast('Project updated'); }
+    else { S.projects.unshift({ id: uid(), ...data, tasks: mkTasks(DEFAULT_TASKS), updated: new Date().toISOString() }); save(); toast('Client added with a default task list'); }
+    close(); render();
+  };
+}
+
+/* ============ EVENTS ============ */
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-go],[data-act],[data-open],[data-filter],[data-set],[data-deltask]');
+  if (!t) return;
+  const D = t.dataset, p = S.view === 'detail' ? getP(S.pid) : null;
+  if (D.go) return go(D.go);
+  if (D.open) return go('detail', D.open);
+  if (D.filter) { S.filter = D.filter; return render(); }
+  if (D.set && p) { const k = p.tasks.find(x => x.id === D.t); if (k.status !== D.set) { k.status = D.set; touch(p); render(); if (D.set === 'done') toast('✓ Task completed: ' + k.name + ' (' + stats(p).pct + '%)'); } return; }
+  if (D.deltask && p) { const k = p.tasks.find(x => x.id === D.deltask); return confirmBox('Delete task “' + k.name + '”?', () => { p.tasks = p.tasks.filter(x => x !== k); touch(p); render(); }); }
+  switch (D.act) {
+    case 'menu': if (innerWidth <= 860) $('#app').classList.toggle('open'); else $('#app').classList.toggle('collapsed'); break;
+    case 'theme': { const l = document.documentElement.dataset.theme === 'dark'; setTheme(l ? 'light' : 'dark'); break; }
+    case 'new': form(); break;
+    case 'edit': form(D.id); break;
+    case 'dup': { const o = getP(D.id), c = JSON.parse(JSON.stringify(o)); c.id = uid(); c.project += ' (Copy)'; c.tasks.forEach(k => { k.id = uid(); k.status = 'todo'; }); c.updated = new Date().toISOString(); S.projects.unshift(c); save(); toast('Project duplicated (tasks reset)'); go('detail', c.id); break; }
+    case 'del': { const o = getP(D.id); confirmBox('Delete “' + o.project + '” for ' + o.name + '? This cannot be undone.', () => { S.projects = S.projects.filter(x => x !== o); save(); toast('Project deleted'); go('projects'); }); break; }
+    case 'addtask': { const i = $('#newTask'), n = i.value.trim(); if (!n) return toast('Type a task name first', true); p.tasks.push({ id: uid(), name: n, status: 'todo' }); touch(p); render(); break; }
+  }
+});
+document.addEventListener('change', e => {
+  const id = e.target.dataset.rename, p = getP(S.pid);
+  if (!id || !p) return;
+  const k = p.tasks.find(x => x.id === id), v = e.target.value.trim();
+  if (!v) { e.target.value = k.name; return toast('Task name cannot be empty', true); }
+  k.name = v; touch(p); render();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.id === 'newTask') document.querySelector('[data-act=addtask]').click();
+  if (e.key === 'Escape') close();
+});
+
+function setTheme(t) {
+  document.documentElement.dataset.theme = t;
+  $('#thIc').textContent = t === 'dark' ? '☀' : '☾'; $('#thLb').textContent = t === 'dark' ? 'Light mode' : 'Dark mode';
+  try { localStorage.setItem(KEY + ':theme', t); } catch (e) {}
+}
+function route() {
+  const h = location.hash.slice(1);
+  if (h.startsWith('project-') && getP(h.slice(8))) { S.view = 'detail'; S.pid = h.slice(8); }
+  else if (h === 'projects') S.view = 'projects'; else S.view = 'dashboard';
+  render();
+}
+window.addEventListener('hashchange', () => { if (location.hash.slice(1) !== (S.view === 'detail' ? 'project-' + S.pid : S.view)) route(); });
+let th = 'dark'; try { th = localStorage.getItem(KEY + ':theme') || 'dark'; } catch (e) {}
+setTheme(th); route();
+</script>
+</body>
+</html>
